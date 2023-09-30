@@ -1,0 +1,51 @@
+﻿@page "/Todolist"
+@using SamboPoints.Models;
+
+<h1>TodoList</h1>
+
+<input @bind="newTodo" @bind:event="onchange" placeholder="What should you do?" />
+<input @bind="dueDate" placeholder="YYYY-MM-DD" />
+<button @onclick="Save">Save</button>
+
+<p>
+    <ul>
+        @foreach (var item in Todos)
+        {
+            <li>
+                @item.Todo
+                @item.DateAndTime
+            </li>
+        }
+    </ul>
+</p>
+
+<p>"hej"</p>
+
+
+
+@if (!string.IsNullOrEmpty(newTodo))
+{
+    <p>@newTodo Due: @dueDate?.ToShortDateString()</p>
+}
+
+@code {
+
+    private List<TodoItem> Todos = new();
+
+    // Create fields for writing todo and date
+    private string newTodo = string.Empty;
+    private DateTime? dueDate = null;
+
+    // Add them to a list
+    private void Save()
+    {
+        Todos.Add(new TodoItem
+            {
+                Todo = newTodo,
+                DateAndTime = dueDate
+            });
+
+        newTodo = string.Empty;
+        dueDate = null;
+    }
+}

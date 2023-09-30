@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33927.249
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamboPoints", "SamboPoints\SamboPoints.csproj", "{1A42B138-8B24-4CA3-BF48-8652468B3ADD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamboPoints", "SamboPoints\SamboPoints.csproj", "{1A42B138-8B24-4CA3-BF48-8652468B3ADD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{CAC18D64-53BE-4B3E-93BE-B3359ACA6440}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +20,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1A42B138-8B24-4CA3-BF48-8652468B3ADD} = {CAC18D64-53BE-4B3E-93BE-B3359ACA6440}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {384B7F62-74A6-476D-925B-A7B37B8A9BA6}

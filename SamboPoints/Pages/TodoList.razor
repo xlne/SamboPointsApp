@@ -1,31 +1,34 @@
-﻿@page "/Todolist"
+﻿@page "/tasklist"
 @using SamboPoints.Models;
 
-<h1>TodoList</h1>
+<h1>Task List</h1>
 
-<input @bind="newTodo" @bind:event="onchange" placeholder="What should you do?" />
+<input @bind="newTodo" @bind:event="onchange" placeholder="Sambo Task" />
 <input @bind="dueDate" placeholder="YYYY-MM-DD" />
-<button @onclick="Save">Save</button>
+<button @onclick="Save">Add</button>
 
-<p>
-    <ul>
+<table>
+    <thead>
+        <tr>
+            <th>Sambo Task</th>
+            <th>Due Date</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (var item in Todos)
         {
-            <li>
-                @item.Todo
-                @item.DateAndTime
-            </li>
+            <tr>
+                <td>@item.Todo</td>
+                <td>@item.DateAndTime?.ToString("yyyy-MM-dd")</td>
+                <td><button @onclick="Edit">Edit</button></td>
+            </tr>
         }
-    </ul>
-</p>
-
-<p>"hej"</p>
-
-
+    </tbody>
+</table>
 
 @if (!string.IsNullOrEmpty(newTodo))
 {
-    <p>@newTodo Due: @dueDate?.ToShortDateString()</p>
+    <p>@newTodo Due: @dueDate?.ToString("yyyy-MM-dd")</p>
 }
 
 @code {
@@ -45,7 +48,14 @@
                 DateAndTime = dueDate
             });
 
+        //Also save list items in database
+
         newTodo = string.Empty;
         dueDate = null;
+    }
+
+    private void Edit()
+    {
+
     }
 }

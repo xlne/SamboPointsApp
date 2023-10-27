@@ -5,7 +5,7 @@
 
 <input @bind="newTodo" @bind:event="onchange" placeholder="Sambo Task" />
 <input @bind="dueDate" placeholder="YYYY-MM-DD" />
-<button @onclick="Save">Add</button>
+<button @onclick="(() => Save(listId))">Add</button>
 
 <table>
     <thead>
@@ -20,12 +20,53 @@
             <tr>
                 <td>@item.Todo</td>
                 <td>@item.DateAndTime?.ToString("yyyy-MM-dd")</td>
-                <td><button @onclick="Edit">Edit</button></td>
+                <td><button @onclick="() => EditItem()">@buttonText</button></td>
             </tr>
         }
     </tbody>
 </table>
+@if (showEditPopUp)
+{
+    <div class="modal" tabindex="-1" style="display:block"
+         role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit Sambo Task</h3>
+                    <!-- Button to close the popup -->
+                    <button type="button" class="close"
+                    @onclick="ClosePopup">
+                        <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <!-- Edit form for the current forecast -->
+                <div class="modal-body">
+                    <input class="form-control" type="text"
+                    @bind="newTodo" placeholder=newTodo />
+                    <input class="form-control" type="text"
+                    @bind="dueDate" placeholder=dueDate />
+                    <br />
+                    <!-- Button to save the forecast -->
+                    <button class="btn btn-primary"
+                    @onclick="(() => Save(listId))">
+                        Save
+                    </button>
+                    @*  <!-- Only show button if not a new record -->
+                @if (objWeatherForecastDTO.Id > 0)
+                {
+                <!-- Button to delete the forecast -->
+                <button class="btn btn-primary"
+                @onclick="DeleteForecast">
+                Delete
+                </button>
+                } *@
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
+@* Maybe put this in a table row? *@
 @if (!string.IsNullOrEmpty(newTodo))
 {
     <p>@newTodo Due: @dueDate?.ToString("yyyy-MM-dd")</p>
@@ -35,27 +76,58 @@
 
     private List<TodoItem> Todos = new();
 
-    // Create fields for writing todo and date
     private string newTodo = string.Empty;
     private DateTime? dueDate = null;
+    string buttonText = "Edit";
+    bool showEditPopUp = false;
+    int listId;
 
-    // Add them to a list
-    private void Save()
+    private void Save(int? listItemId = null)
     {
-        Todos.Add(new TodoItem
+        if (listItemId < 0)
+        {
+            var index = Todos.FindIndex(item => item.Id == listItemId);
+            if (index != -1)
             {
-                Todo = newTodo,
-                DateAndTime = dueDate
-            });
+                Todos[index].Todo = newTodo;
+                Todos[index].DateAndTime = dueDate;
+            }
+        }
+        else
+        {
+            TodoItem newItem = new TodoItem
+                {
+                    Id = listId,
+                    Todo = newTodo,
+                    DateAndTime = dueDate
+                };
 
-        //Also save list items in database
+            Todos.Add(newItem);
+            listId++;
+        }
 
         newTodo = string.Empty;
         dueDate = null;
+        showEditPopUp = false;
+
     }
 
-    private void Edit()
-    {
+    //Also save list items in database
 
+    private void EditItem()
+    {
+        showEditPopUp = true;
+
+
+
+
+        // buttonText = "Save";
+        // newTodo = @newTodo;
+        // var selectedItem = Todos.First(c => c.Id == id);
+    }
+
+    private void ClosePopup()
+    {
+        showEditPopUp = false;
     }
 }

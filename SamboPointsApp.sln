@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamboPoints", "SamboPoints\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{CAC18D64-53BE-4B3E-93BE-B3359ACA6440}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{7EB563A1-9BFF-4D0E-8F3F-79477113FCE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamboPoints.Server", "SamboPoints.Server\SamboPoints.Server.csproj", "{DE64F582-5375-4C2F-9714-B24780ED6D94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +21,17 @@ Global
 		{1A42B138-8B24-4CA3-BF48-8652468B3ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A42B138-8B24-4CA3-BF48-8652468B3ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A42B138-8B24-4CA3-BF48-8652468B3ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE64F582-5375-4C2F-9714-B24780ED6D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE64F582-5375-4C2F-9714-B24780ED6D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE64F582-5375-4C2F-9714-B24780ED6D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE64F582-5375-4C2F-9714-B24780ED6D94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1A42B138-8B24-4CA3-BF48-8652468B3ADD} = {CAC18D64-53BE-4B3E-93BE-B3359ACA6440}
+		{DE64F582-5375-4C2F-9714-B24780ED6D94} = {7EB563A1-9BFF-4D0E-8F3F-79477113FCE0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {384B7F62-74A6-476D-925B-A7B37B8A9BA6}

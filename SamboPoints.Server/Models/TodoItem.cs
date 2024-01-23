@@ -1,4 +1,4 @@
-﻿namespace SamboPoints.Models
+﻿namespace SamboPoints.Server.Models
 {
     public class TodoItem
     {

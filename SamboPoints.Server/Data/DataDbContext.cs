@@ -5,16 +5,22 @@ namespace SamboPoints.Server.Data;
 
 public class DataDbContext : DbContext
 {
-    public DbSet<TodoItem> TodoItems { get; set; }
-    public string DbPath { get; }
-
-    public DataDbContext()
+    public DataDbContext(DbContextOptions<DataDbContext> options) : base(options)
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = Path.Join(path, "samboPoints.db");
+        
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    => options.UseSqlite($"Data Source={DbPath}");
+
+    //protected readonly IConfiguration _configuration;
+
+    //public DataDbContext(IConfiguration configuration)
+    //{
+    //    _configuration = configuration;
+    //}
+
+    //protected override void OnConfiguring(DbContextOptionsBuilder options)
+    //{
+    //    options.UseSqlite(_configuration.GetConnectionString("SamboPointsDatabase"));
+    //}
+    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 }

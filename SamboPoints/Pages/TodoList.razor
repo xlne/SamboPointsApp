@@ -1,17 +1,17 @@
-﻿@page "/tasklist"
-@using SamboPoints.Models;
+﻿@page "/todolist"
+@using SamboPoints.Server.Models;
 
 <h1>Task List</h1>
 
 <input @bind="newTodo" @bind:event="onchange" placeholder="Sambo Task" />
 <input @bind="dueDate" placeholder="YYYY-MM-DD" />
-<button @onclick="(() => Save(listId))">Add</button>
+<button @onclick="(() => Save(todoItem))">Add</button>
 
 <table>
     <thead>
         <tr>
-            <th>Sambo Task</th>
-            <th>Due Date</th>
+            <th class="mx-2">Sambo Task</th>
+            <th class="mx-2">Due Date</th>
         </tr>
     </thead>
     <tbody>
@@ -48,7 +48,7 @@
                     <br />
                     <!-- Button to save the forecast -->
                     <button class="btn btn-primary"
-                    @onclick="(() => Save(listId))">
+                    @onclick="(() => Save(todoItem))">
                         Save
                     </button>
                     @*  <!-- Only show button if not a new record -->
@@ -76,39 +76,53 @@
 
     private List<TodoItem> Todos = new();
 
+    TodoItem todoItem;
+
     private string newTodo = string.Empty;
     private DateTime? dueDate = null;
     string buttonText = "Edit";
     bool showEditPopUp = false;
-    int listId;
 
-    private void Save(int? listItemId = null)
+    private void Save(TodoItem item)
     {
-        if (listItemId < 0)
-        {
-            var index = Todos.FindIndex(item => item.Id == listItemId);
-            if (index != -1)
+        // lägg till item i listan med nytt listid
+        TodoItem newItem = new TodoItem
             {
-                Todos[index].Todo = newTodo;
-                Todos[index].DateAndTime = dueDate;
-            }
-        }
-        else
-        {
-            TodoItem newItem = new TodoItem
-                {
-                    Id = listId,
-                    Todo = newTodo,
-                    DateAndTime = dueDate
-                };
+                Id = item.Id,
+                Todo = item.Todo,
+                DateAndTime = item.DateAndTime
+            };
 
-            Todos.Add(newItem);
-            listId++;
-        }
+        Todos.Add(newItem);
 
         newTodo = string.Empty;
         dueDate = null;
-        showEditPopUp = false;
+
+        // if (listItemId < 0)
+        // {
+        //     var index = Todos.FindIndex(item => item.Id == listItemId);
+        //     if (index != -1)
+        //     {
+        //         Todos[index].Todo = newTodo;
+        //         Todos[index].DateAndTime = dueDate;
+        //     }
+        // }
+        // else
+        // {
+        //     TodoItem newItem = new TodoItem
+        //         {
+        //             Id = listId,
+        //             Todo = newTodo,
+        //             DateAndTime = dueDate
+        //         };
+
+        //     Todos.Add(newItem);
+        //     listId++;
+        // }
+
+        // newTodo = string.Empty;
+        // dueDate = null;
+        // showEditPopUp = false;
 
     }
 
@@ -117,9 +131,6 @@
     private void EditItem()
     {
         showEditPopUp = true;
-
-
-
 
         // buttonText = "Save";
         // newTodo = @newTodo;

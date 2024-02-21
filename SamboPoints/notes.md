@@ -3,7 +3,7 @@
 Features:
 - 
 - Create account
-	- Duende authorization/fire...something.
+	- Duende authorization/firebase...something.
 - Add points to user
 - Remove points from user
 - Add tasks to Tasklist
